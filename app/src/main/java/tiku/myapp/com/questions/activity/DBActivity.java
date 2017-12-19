@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import tiku.myapp.com.questions.bean.DaoMaster;
 import tiku.myapp.com.questions.bean.DaoSession;
 import tiku.myapp.com.questions.bean.UserBean;
 import tiku.myapp.com.questions.bean.UserBeanDao;
+import tiku.myapp.com.questions.utils.MyAsyncTask;
 
 /**
  * Created by Administrator on 2017/12/18.
@@ -37,6 +39,8 @@ public class DBActivity extends Activity {
     Button tvUpdata;
     @BindView(R.id.iv_back)
     ImageButton ivBack;
+    @BindView(R.id.loading_progress_db)
+    ProgressBar loadingProgressDb;
 
     private UserBeanDao userBeanDao;
     private AnswerBeanDao answerBeanDao;
@@ -56,7 +60,7 @@ public class DBActivity extends Activity {
         answerBeanDao = daoSession.getAnswerBeanDao();
     }
 
-    @OnClick({R.id.tv_instert, R.id.tv_quary, R.id.tv_delet, R.id.tv_updata,R.id.iv_back})
+    @OnClick({R.id.tv_instert, R.id.tv_quary, R.id.tv_delet, R.id.tv_updata, R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -64,17 +68,8 @@ public class DBActivity extends Activity {
                 break;
 
             case R.id.tv_instert:
-                for (int i = 10; i < 100; i++) {
-                    long num = i;
-                    String username = "2017" + i;
-                    String nickname = "张三" + i;
-                    int answera = i + 1;
-                    userBeanDao.insert(new UserBean(num, username, nickname, answera, ""));
-
-                    for (int k = 0; k < 4; k++) {
-                        answerBeanDao.insert(new AnswerBean(answera, k, "我是答案" + k + 1));
-                    }
-                }
+                //添加数据
+                instertData();
 
                 break;
             case R.id.tv_quary:
@@ -99,6 +94,38 @@ public class DBActivity extends Activity {
                 break;
 
         }
+    }
+
+    private void instertData() {
+        new MyAsyncTask() {
+            @Override
+            public void preTask() {
+                loadingProgressDb.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void doInBack() {
+                userBeanDao.deleteAll();
+                answerBeanDao.deleteAll();
+                for (int i = 10; i < 100; i++) {
+                    long num = i;
+                    String username = "2017" + i;
+                    String nickname = "张三" + i;
+                    int answera = i + 1;
+                    userBeanDao.insert(new UserBean(num, username, nickname, answera, ""));
+
+                    for (int k = 0; k < 4; k++) {
+                        answerBeanDao.insert(new AnswerBean(answera, k,i+"我是答案" + k));
+                    }
+                }
+            }
+
+            @Override
+            public void postTask() {
+                loadingProgressDb.setVisibility(View.GONE);
+            }
+        }.execute();
+
     }
 
 }

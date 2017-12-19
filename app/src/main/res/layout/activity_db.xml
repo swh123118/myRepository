@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
@@ -15,7 +16,6 @@
             android:layout_centerVertical="true"
             android:background="@null"
             android:src="@mipmap/icon_back_black" />
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +31,8 @@
         android:id="@+id/tv_instert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/rl_title"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="插入" />
 
@@ -39,7 +40,8 @@
         android:id="@+id/tv_quary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/tv_instert"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="查询" />
 
@@ -47,7 +49,8 @@
         android:id="@+id/tv_delet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/tv_quary"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="删除" />
 
@@ -55,9 +58,17 @@
         android:id="@+id/tv_updata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/tv_delet"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="更新" />
 
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/loading_progress_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
