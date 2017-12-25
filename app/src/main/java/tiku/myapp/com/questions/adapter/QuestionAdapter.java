@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -20,7 +21,7 @@ import tiku.myapp.com.questions.bean.UserBean;
 
 
 /**
- * Created by Administrator on 2017/12/18.
+ * Created by swh on 2017/12/18.
  * 题adapter
  */
 
@@ -48,13 +49,12 @@ public class QuestionAdapter extends BaseQuickAdapter<QuestionBean, BaseViewHold
         recyclerView.setLayoutManager(linearLayoutManager);
 
         List<AnswerBean> answerS = ((QuestionActivity) mContext).getAnswerS(item.getAId());
+        //查询学生答案，
+        final int stuanswerId = ((QuestionActivity) mContext).quaryAnswer(item.getAId());
 
-        int stuanswerId = ((QuestionActivity) mContext).quaryAnswer(item.getAId());
         final AnswerAdapter answerAdapter = new AnswerAdapter(answerS);
-
-        Log.e("ddddd",stuanswerId+"//");
         recyclerView.setAdapter(answerAdapter);
-
+        //判断学生答案对错，这里是求余
         if (stuanswerId != -1) {
             answerAdapter.addFooterView(View.inflate(mContext, R.layout.adapter_answer_current, null));
             iv_answer.setVisibility(View.VISIBLE);
@@ -66,15 +66,22 @@ public class QuestionAdapter extends BaseQuickAdapter<QuestionBean, BaseViewHold
         } else {
             iv_answer.setVisibility(View.GONE);
         }
+        //已选答案，设置选择的item
         answerAdapter.setSelectPosition(stuanswerId);
 
         answerAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                answerAdapter.setSelectPosition(position);
-                ((QuestionActivity) mContext).updataAnswer(item.getAId(), position);
-                //查看正确答案
-                checkAnswer(position,item.getACurId());
+                if (stuanswerId==-1){
+                    answerAdapter.setSelectPosition(position);
+                    //保存学生答案
+                    ((QuestionActivity) mContext).updataAnswer(item.getAId(), position);
+                    //查看正确答案
+                    checkAnswer(position,item.getACurId());
+                }else {
+                    Toast.makeText(mContext,"答案已选",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

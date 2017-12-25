@@ -8,7 +8,8 @@ import org.greenrobot.greendao.annotation.Generated;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/12/18.
+ * Created by swh on 2017/12/18.
+ * 用户bean
  */
 @Entity
 public class UserBean {

@@ -5,7 +5,7 @@ import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
- * Created by Administrator on 2017/12/18.
+ * Created by swh on 2017/12/18.
  * 答案表
  */
 

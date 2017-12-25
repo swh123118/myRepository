@@ -12,7 +12,7 @@ import tiku.myapp.com.questions.R;
 import tiku.myapp.com.questions.bean.AnswerBean;
 
 /**
- * Created by Administrator on 2017/12/18.
+ * Created by swh on 2017/12/18.
  * 答案adapter
  */
 

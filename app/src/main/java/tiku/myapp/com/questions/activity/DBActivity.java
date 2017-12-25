@@ -27,7 +27,7 @@ import tiku.myapp.com.questions.bean.UserBeanDao;
 import tiku.myapp.com.questions.utils.MyAsyncTask;
 
 /**
- * Created by Administrator on 2017/12/18.
+ * Created by swh on 2017/12/18.
  * 数据库操作类
  */
 public class DBActivity extends Activity {

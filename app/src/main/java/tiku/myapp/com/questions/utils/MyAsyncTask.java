@@ -2,6 +2,11 @@ package tiku.myapp.com.questions.utils;
 
 import android.os.Handler;
 
+/**
+ * Created by swh on 2017/12/18.
+ * 异步加载框架
+ */
+
 public abstract class MyAsyncTask {
 
     private Handler handler = new Handler() {
