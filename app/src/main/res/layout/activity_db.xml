@@ -28,19 +28,19 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/tv_instert"
+        android:id="@+id/tv_instert_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="插入" />
+        android:text="用户插入" />
 
     <Button
         android:id="@+id/tv_quary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_instert"
+        android:layout_below="@+id/tv_instert_user"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="查询" />
@@ -70,5 +70,15 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+
+    <Button
+        android:id="@+id/tv_instert_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_updata"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="问题插入" />
 
 </RelativeLayout>

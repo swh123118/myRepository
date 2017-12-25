@@ -25,8 +25,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Username = new Property(1, String.class, "username", false, "USERNAME");
         public final static Property Nickname = new Property(2, String.class, "nickname", false, "NICKNAME");
-        public final static Property AnswerID = new Property(3, int.class, "answerID", false, "ANSWERID");
-        public final static Property StuanswerID = new Property(4, String.class, "stuanswerID", false, "STUANSWERID");
     }
 
 
@@ -44,9 +42,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"USER_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"USERNAME\" TEXT," + // 1: username
-                "\"NICKNAME\" TEXT," + // 2: nickname
-                "\"ANSWERID\" INTEGER NOT NULL ," + // 3: answerID
-                "\"STUANSWERID\" TEXT);"); // 4: stuanswerID
+                "\"NICKNAME\" TEXT);"); // 2: nickname
     }
 
     /** Drops the underlying database table. */
@@ -73,12 +69,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (nickname != null) {
             stmt.bindString(3, nickname);
         }
-        stmt.bindLong(4, entity.getAnswerID());
- 
-        String stuanswerID = entity.getStuanswerID();
-        if (stuanswerID != null) {
-            stmt.bindString(5, stuanswerID);
-        }
     }
 
     @Override
@@ -99,12 +89,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (nickname != null) {
             stmt.bindString(3, nickname);
         }
-        stmt.bindLong(4, entity.getAnswerID());
- 
-        String stuanswerID = entity.getStuanswerID();
-        if (stuanswerID != null) {
-            stmt.bindString(5, stuanswerID);
-        }
     }
 
     @Override
@@ -117,9 +101,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         UserBean entity = new UserBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickname
-            cursor.getInt(offset + 3), // answerID
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // stuanswerID
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // nickname
         );
         return entity;
     }
@@ -129,8 +111,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUsername(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setNickname(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setAnswerID(cursor.getInt(offset + 3));
-        entity.setStuanswerID(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

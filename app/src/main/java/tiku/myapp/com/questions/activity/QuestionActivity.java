@@ -22,8 +22,8 @@ import tiku.myapp.com.questions.bean.AnswerBean;
 import tiku.myapp.com.questions.bean.AnswerBeanDao;
 import tiku.myapp.com.questions.bean.DaoMaster;
 import tiku.myapp.com.questions.bean.DaoSession;
-import tiku.myapp.com.questions.bean.UserBean;
-import tiku.myapp.com.questions.bean.UserBeanDao;
+import tiku.myapp.com.questions.bean.QuestionBean;
+import tiku.myapp.com.questions.bean.QuestionBeanDao;
 import tiku.myapp.com.questions.utils.MyAsyncTask;
 
 /**
@@ -44,10 +44,10 @@ public class QuestionActivity extends Activity {
     @BindView(R.id.iv_back)
     ImageButton ivBack;
 
-    private UserBeanDao userBeanDao;
+    private QuestionBeanDao questionBeanDao;
     private AnswerBeanDao answerBeanDao;
     private int currentPosition;
-    private List<UserBean> list;
+    private List<QuestionBean> list;
     private QuestionAdapter questionAdapter;
 
     @Override
@@ -78,7 +78,7 @@ public class QuestionActivity extends Activity {
         DaoMaster daoMaster = new DaoMaster(devOpenHelper.getWritableDb());
         DaoSession daoSession = daoMaster.newSession();
 
-        userBeanDao = daoSession.getUserBeanDao();
+        questionBeanDao = daoSession.getQuestionBeanDao();
 
         answerBeanDao = daoSession.getAnswerBeanDao();
 
@@ -102,7 +102,7 @@ public class QuestionActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                list = userBeanDao.queryBuilder().where(UserBeanDao.Properties.Id.between(10, 99)).limit(20).build().list();
+                list = questionBeanDao.queryBuilder().where(QuestionBeanDao.Properties.QId.between(0, 99)).limit(20).build().list();
             }
 
             @Override
@@ -114,8 +114,9 @@ public class QuestionActivity extends Activity {
         }.execute();
     }
 
-    //获取具体答案
+    //获取所有答案
     public List<AnswerBean> getAnswerS(int id) {
+
         List<AnswerBean> list = answerBeanDao.queryBuilder().where(AnswerBeanDao.Properties.AnswerID.eq(id)).build().list();
 
         return list;
@@ -124,10 +125,10 @@ public class QuestionActivity extends Activity {
 
     //保存用户答案
     public void updataAnswer(int id, int answerId) {
-        UserBean answerbean = userBeanDao.queryBuilder().where(UserBeanDao.Properties.AnswerID.eq(id)).build().unique();
-        if (answerbean != null) {
-            answerbean.setStuanswerID(answerId + "");
-            userBeanDao.update(answerbean);
+        QuestionBean questionBean = questionBeanDao.queryBuilder().where(QuestionBeanDao.Properties.QId.eq(id)).build().unique();
+        if (questionBean != null) {
+            questionBean.setAStuId(answerId);
+            questionBeanDao.update(questionBean);
         }
 
 
@@ -136,9 +137,9 @@ public class QuestionActivity extends Activity {
     //判断用户是否答题
     public int quaryAnswer(int id) {
         int position = -1;
-        UserBean unique = userBeanDao.queryBuilder().where(UserBeanDao.Properties.AnswerID.eq(id)).build().unique();
-        if (unique != null && !unique.getStuanswerID().equals("")) {
-            position = Integer.parseInt(unique.getStuanswerID());
+        QuestionBean unique = questionBeanDao.queryBuilder().where(QuestionBeanDao.Properties.QId.eq(id)).build().unique();
+        if (unique != null && unique.getAStuId()!=-1) {
+            position = unique.getAStuId();
             return position;
         } else {
             return position;
