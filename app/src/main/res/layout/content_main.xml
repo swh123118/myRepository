@@ -34,4 +34,16 @@
         android:text="跳到题库"
         android:textColor="#333333" />
 
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_chick_question"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:gravity="center"
+        android:text="弹出选择框"
+        android:textColor="#333333" />
+
 </RelativeLayout>
