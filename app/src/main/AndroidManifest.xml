@@ -22,6 +22,7 @@
 
         <activity android:name=".activity.DBActivity"/>
         <activity android:name=".activity.QuestionActivity"/>
+        <activity android:name=".activity.TestContactActivity"/>
 
     </application>
 

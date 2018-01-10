@@ -56,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.tv_jump_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,TestContactActivity.class));
+            }
+        });
+
 
 
         findViewById(R.id.tv_chick_question).setOnClickListener(new View.OnClickListener() {
